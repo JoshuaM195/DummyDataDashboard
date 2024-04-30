@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Documents</title>
+</head>
+<body>
+    <h1>Document List</h1>
+    <ul>
+        {% for document in documents %}
+        <li>Type: {{ document['type'] }}, User ID: {{ document['user_id'] }}, Destination ID: {{ document.get('destination_id', 'N/A') }}</li>
+        {% if document['type'] == 'user_review' %}
+        <li>Rating: {{ document['rating'] }}, Text: {{ document['text'] }}, Date: {{ document['date'] }}</li>
+        {% elif document['type'] == 'comment' %}
+        <li>Text: {{ document['text'] }}, Timestamp: {{ document['timestamp'] }}</li>
+        {% elif document['type'] == 'trip_log' %}
+        <li>Start Date: {{ document['start_date'] }}, End Date: {{ document['end_date'] }}, Activities: {{ ', '.join(document['activities']) }}</li>
+        {% elif document['type'] == 'geolocation' %}
+        <li>Country: {{ document['country'] }}</li>
+        {% endif %}
+        <br>
+        {% endfor %}
+    </ul>
+</body>
+</html>

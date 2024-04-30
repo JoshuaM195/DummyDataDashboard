@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Reviews</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #FFD1DC, #DDB9E5);
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 20px; 
+        }
+        .reviews-container, .form-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+        }
+        .review-post {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            margin-bottom: 20px;
+        }
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background-color: #ddd;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            padding: 10px 20px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .page-title {
+            text-align: center;
+            font-size: 48px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="page-title">TripShare</h1>
+    <div class="form-container">
+        <h2>Add a Review</h2>
+        <form action="/add_review" method="POST">
+            <label for="user_name">User Name:</label>
+            <input type="text" id="user_name" name="user_name" required>
+
+            <label for="country">Destination Country:</label>
+            <input type="text" id="country" name="country" required>
+
+            <label for="comment">Comment:</label>
+            <textarea id="comment" name="comment" required></textarea>
+
+            <label for="rating">Rating:</label>
+            <select id="rating" name="rating">
+                <option value="1">1 Star</option>
+                <option value="2">2 Stars</option>
+                <option value="3">3 Stars</option>
+                <option value="4">4 Stars</option>
+                <option value="5">5 Stars</option>
+            </select>
+
+            <input type="submit" value="Add Review">
+        </form>
+    </div>
+    <div class="reviews-container">
+        {% for review in reviews %}
+        <div class="review-post">
+            <div class="image-placeholder" style="background-color: #{{ review.color }}">Image Placeholder</div>
+            <h3>User Name: {{ review.user_name }}, Destination Country: {{ review.country }}</h3>
+            <p>{{ review.text }}</p>
+            <p>Rating: {{ review.rating }} Stars</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
